@@ -1,0 +1,11 @@
+
+public class q3
+{
+    
+    public static void main(String[] args){
+        
+    }
+    public static void drawSierpinski(){
+        
+    }
+}
