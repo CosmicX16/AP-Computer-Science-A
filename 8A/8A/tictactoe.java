@@ -29,7 +29,7 @@ public class tictactoe
                 String[] temp = scn.nextLine().split(",");
                 int xX = Integer.parseInt(temp[0]);
                 int xY = Integer.parseInt(temp[1]);
-                if(xX > 3 || xY > 3|| xX == 0 || xY == 0){
+                if(xX > 3 || xY > 3|| xX < 1 || xY < 1){
                     System.out.println("Error: out of bounds");
                     break;
                 }
@@ -41,7 +41,7 @@ public class tictactoe
                 String[] temp = scn.nextLine().split(",");
                 int oX = Integer.parseInt(temp[0]);
                 int oY = Integer.parseInt(temp[1]);
-                if(oX > 3 || oY > 3 || oX == 0 || oY == 0){
+                if(oX > 3 || oY > 3 || oX < 1 || oY < 1){
                     System.out.println("Error: out of bounds");
                     break;
                 }
@@ -55,9 +55,9 @@ public class tictactoe
             if(winner == 1){
                 System.out.println("Congrats, player of X wins!");
                 
-            }else{
+            }else if(winner == -1){
                 System.out.println("Congrats, player of O wins!");
-            }
+            }else System.out.println("Error: win w/o winner");
         }
     }
     public String[][] initBoard(String[][] b){
@@ -88,14 +88,14 @@ public class tictactoe
         int w = 0;
         boolean bool = false;
         for(int i = 0; i < b.length; i++){
-            if(b[0][i] == b[1][i] && b[1][i] == b[2][i]){
+            if(b[0][i] == b[1][i] && b[1][i] == b[2][i] && b[0][i] != " "){
                 bool = true;
                 values.add(bool);
                 if(b[0][i].equals("X")) w = 1;
                 else if(b[0][i].equals("O")) w = -1;
                 values.add(w);
                 return values;
-            }else if(b[i][0] == b[i][1] && b[i][1] == b[i][2]){
+            }else if(b[i][0] == b[i][1] && b[i][1] == b[i][2] && b[i][0] != " "){
                 bool = true;
                 values.add(bool);
                 if(b[i][0].equals("X")) w = 1;
@@ -104,7 +104,7 @@ public class tictactoe
                 return values;
             }
         }
-        if((b[0][0] == b[1][1]&& b[1][1] == b[2][2])||(b[2][0] == b[1][1]&& b[1][1] == b[0][2])){
+        if(((b[0][0] == b[1][1]&& b[1][1] == b[2][2])||(b[2][0] == b[1][1]&& b[1][1] == b[0][2])) && b[1][1] != " "){
             bool = true;
             values.add(bool);
             if(b[1][1].equals("X")) w = 1;
