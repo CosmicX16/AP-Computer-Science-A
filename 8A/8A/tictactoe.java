@@ -21,8 +21,11 @@ public class tictactoe
         String[][] board = new String[3][3];
         int turn = 1;
         int winner = 0;
+        int round = 0;
         board = initBoard(board);
         while(!gameEnd){
+            round++;
+            System.out.println("Round: "+ round);
             display(board);
             if(turn == 1){
                 System.out.println("X Player move (row,column):");
@@ -31,9 +34,9 @@ public class tictactoe
                 int xY = Integer.parseInt(temp[1]);
                 if(xX > 3 || xY > 3|| xX < 1 || xY < 1){
                     System.out.println("Error: out of bounds");
-                    break;
+                    
                 }
-                board = editBoard(board,xX,xY,"X");
+                else board = editBoard(board,xX,xY,"X");
                 if((boolean)winCheck(board).get(0) == true) gameEnd = true;
                 turn = -1;
             }else if(turn == -1){
@@ -43,23 +46,17 @@ public class tictactoe
                 int oY = Integer.parseInt(temp[1]);
                 if(oX > 3 || oY > 3 || oX < 1 || oY < 1){
                     System.out.println("Error: out of bounds");
-                    break;
+                    
                 }
-                board = editBoard(board,oX,oY,"O");
+                else board = editBoard(board,oX,oY,"O");
                 if((boolean)winCheck(board).get(0) == true) gameEnd = true;
                 turn = 1;
             }
+
         }
-        if(gameEnd){
-            winner = (int)winCheck(board).get(1);
-            if(winner == 1){
-                System.out.println("Congrats, player of X wins!");
-                
-            }else if(winner == -1){
-                System.out.println("Congrats, player of O wins!");
-            }else System.out.println("Error: win w/o winner");
-        }
+        
     }
+    
     public String[][] initBoard(String[][] b){
         for(int i = 0; i < b.length; i++){
             for(int j = 0; j < b.length; j++){
