@@ -11,8 +11,9 @@ public class Fraction
      */
     public Fraction()
     {
-        num = 1;
-        denom = 1;
+        num = (int)(Math.random()*9 +1);
+        denom = (int)(Math.random()*9 +1);
+        if(denom == num) denom = (int)(Math.random()*9 +1);
     }
     public Fraction(int n, int d){
         num = n;
@@ -25,10 +26,13 @@ public class Fraction
     public Fraction(String s){
         String[] split = s.split("/");
         num = Integer.parseInt(split[0]);
-        if(denom == 0) System.out.println("Error: denominator cannot be 0");
-        else{
         denom = Integer.parseInt(split[1]);
+        if(denom == 0){
+            System.out.println("Error: denominator cannot be 0");
+            denom = 1;
         }
+        
+
     }
     public Fraction(Fraction f){
         num = f.getNum();
@@ -82,21 +86,24 @@ public class Fraction
         
     }
     
-    static Fraction multiply(Fraction f1, Fraction f2){
-        Fraction newF = new Fraction(f1.getNum()*f2.getNum(), f1.getDenom()*f2.getDenom());
+    public Fraction multiply(Fraction f2){
+        Fraction newF = new Fraction(getNum()*f2.getNum(), getDenom()*f2.getDenom());
         return newF;
     }
-    static Fraction divide(Fraction f1, Fraction f2){
-        return new Fraction(f1.getNum()*f2.getDenom(),f2.getNum()*f1.getDenom());
+    public Fraction divide(Fraction f2){
+        return new Fraction(getNum()*f2.getDenom(),f2.getNum()*getDenom());
     }
-    static Fraction add(Fraction f1, Fraction f2){
+    public Fraction add(Fraction f1, Fraction f2){
         int num1 = f1.getNum()*f2.getDenom() + f2.getNum()*f1.getDenom();
         int num2 = f1.getDenom()*f2.getDenom();
         return new Fraction(num1,num2);
     }
-    static Fraction subtract(Fraction f1, Fraction f2){
-        int num1 = f1.getNum()*f2.getDenom() - f2.getNum()*f1.getDenom();
-        int num2 = f1.getDenom()*f2.getDenom();
-        return new Fraction(num1,num2);
+    public Fraction subtract(Fraction f2){
+        int num1 = getNum()*f2.getDenom() - f2.getNum()*getDenom();
+        int num2 = getDenom()*f2.getDenom();
+        //System.out.println(num1+" "+num2);
+        Fraction f = new Fraction(num1,num2);
+        f.reduce();
+        return f;
     }
 }
